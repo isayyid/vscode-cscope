@@ -16,14 +16,6 @@
     "contributes": {
         "commands": [
         ],
-        "views": {
-            "explorer": [
-                {
-                    "id": "cscope-hierarchy",
-                    "name": "Cscope Hierarchy"
-                }
-            ]
-        },
         "configuration": [
             {
                 "title": "Cscope",
