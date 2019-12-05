@@ -12,7 +12,7 @@ function activate(context) {
     if (vscode.workspace.workspaceFolders) {
         
         let config = vscode.workspace.getConfiguration('cscope');
-        let path = vscode.workspace.rootPath + "/" + config.get('path');
+        let path = config.get('path');
         let database = config.get('database');
         let cprovider = new CscopeProvider(path, database);
         context.subscriptions.push(vscode.languages.registerReferenceProvider(["cpp", "c", "C", "CPP"], cprovider));
@@ -34,7 +34,7 @@ class CscopeProvider {
     }
 
     async find(symbol, level) {
-        let command = "cscope -f " + this.database + " -L -" + level+ " " + symbol;
+        let command = "cscope -f " + this.database + " -s " + this.path + " -L -" + level+ " " + symbol;
         let { stdout, stderr } = await exec(command, { cwd: this.path });
         let lines = stdout.toString().split('\n');
         let myarr = [];
